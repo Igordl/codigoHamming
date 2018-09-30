@@ -1,3 +1,4 @@
+import unittest
 # Codigo de Hamming para verificacao e correcao de dados de transmissao
 #Alunos: 	Helena Mylena Cunha Dantas
 #			Igor Dantas Lucena
@@ -56,11 +57,13 @@ def defineP8(dado):
 	return dado
 
 def defineParidade(dado):
+	dado = toList(dado)
 	addBitsParidade(dado)
 	dado = defineP1(dado)
 	dado = defineP2(dado)
 	dado = defineP4(dado)
-	return defineP8(dado)
+	dado = toString(defineP8(dado))
+	return dado
 
 def verificaP1(dado):
 	cont = 0
@@ -157,24 +160,48 @@ def toList(string):
 	return lista
 	
 def toString(lista):
+	
 	string = ''
 	
 	for i in lista:
 		string += str(i)
 	
 	return string
+
+class TesteMetodos(unittest.TestCase):
+	
+	def test_DefineParidade_Teste1(self):
+		dado = '10011010'
+		saida = defineParidade(dado)
+		self.assertEqual(saida, '011100101010')
+		
+	def test_CorrigeParidade_Teste1(self):
+		dado = '011100101110'
+		saida = corrigeDado(dado)
+		self.assertEqual(saida, '011100101010')
+	
+	# ESCREVER MAIS TESTES DE DEFINICAO E DE CORRECAO
+	# LEMBRAR DEFINIR ENTRA DADO DE 8 bits e CORRIGE 12 bits
+		
+		
+		
+def test():
+	if( __name__ == "__main__"):
+		unittest.main()
+
+def reset():
+	verifica = [False,False,False,False]
 	
 def menu():
-	print "Menu: \n1- Gerar paridade\n2- Verificar paridade\n0- Sair\n"
+	reset()
+	print "Menu: \n1- Gerar paridade\n2- Verificar paridade\n3- Rodar testes\n0- Sair\n"
 	opcao = raw_input("Opcao: ")
 	if(opcao == '0'):
 		return False
 	elif(opcao == '1'):
 		entrada = raw_input("Digite uma entrada de 8 bits: ")
-		entrada = toList(entrada)
-		entrada = defineParidade(entrada)
-		entrada = toString(entrada)
-		print entrada
+		saida = defineParidade(entrada)
+		print saida
 		
 	elif(opcao == '2'):
 		entrada = raw_input("Digite uma entrada de 12 bits: ")
@@ -185,7 +212,9 @@ def menu():
 			opcao2 = raw_input("Deseja corrigir o erro? [s/n]")
 			if(opcao2.upper() == "S"):
 				print "Dado corrigido:" ,corrigeDado(entrada),"\n"
-
+	elif(opcao == '3'):
+		test()
+		
 	return menu()
 	
 	
