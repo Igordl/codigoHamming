@@ -9,6 +9,10 @@ p4 = [False,False,False,True,True,True,True,False,False,False,False,True]
 p8 = [False,False,False,False,False,False,False,True,True,True,True,True]
 verifica = [False,False,False,False]
 
+def reset():
+	global verifica 
+	verifica = [False,False,False,False]
+	
 def addBitsParidade(dado):
 	dado.insert(0,'0')
 	dado.insert(1,'0')
@@ -102,6 +106,7 @@ def verificaP8(dado):
 		verifica[3]= True
 		
 def verificaParidade(dado):
+	reset()
 	verificaP1(dado)
 	verificaP2(dado)
 	verificaP4(dado)
@@ -113,7 +118,6 @@ def verificaParidade(dado):
 		return True
 	
 def corrigeDado(dado):
-	
 	bit = 0
 	dado = toList(dado)
 	if(not verifica[0]):
@@ -127,7 +131,7 @@ def corrigeDado(dado):
 		
 	if(not verifica[3]):
 		bit+=8
-			
+	
 	if(dado[bit-1] == '1'):
 		dado[bit-1] = '0'
 	else:
@@ -177,6 +181,7 @@ class TesteMetodos(unittest.TestCase):
 		
 	def test_CorrigeParidade_Teste1(self):
 		dado = '011100101110'
+		verificaParidade(dado)
 		saida = corrigeDado(dado)
 		self.assertEqual(saida, '011100101010')
 	
@@ -189,29 +194,27 @@ def test():
 	if( __name__ == "__main__"):
 		unittest.main()
 
-def reset():
-	verifica = [False,False,False,False]
-	
+
 def menu():
-	reset()
+	
 	print "Menu: \n1- Gerar paridade\n2- Verificar paridade\n3- Rodar testes\n0- Sair\n"
 	opcao = raw_input("Opcao: ")
 	if(opcao == '0'):
 		return False
 	elif(opcao == '1'):
-		entrada = raw_input("Digite uma entrada de 8 bits: ")
+		entrada = raw_input("\nDigite uma entrada de 8 bits: ")
 		saida = defineParidade(entrada)
 		print saida
 		
 	elif(opcao == '2'):
-		entrada = raw_input("Digite uma entrada de 12 bits: ")
+		entrada = raw_input("\nDigite uma entrada de 12 bits: ")
 		if(verificaParidade(entrada)):
-			print "Paridade verificada com sucesso!!!\n"
+			print "\nParidade verificada com sucesso!!!\n"
 		else:
-			print "Erro na verificacao de paridade! Erro no bit ", bitErro()
+			print "\nErro na verificacao de paridade! Erro no bit ", bitErro()
 			opcao2 = raw_input("Deseja corrigir o erro? [s/n]")
 			if(opcao2.upper() == "S"):
-				print "Dado corrigido:" ,corrigeDado(entrada),"\n"
+				print "\nDado corrigido:" ,corrigeDado(entrada),"\n"
 	elif(opcao == '3'):
 		test()
 		
