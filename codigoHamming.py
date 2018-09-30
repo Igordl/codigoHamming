@@ -178,22 +178,56 @@ class TesteMetodos(unittest.TestCase):
 		dado = '10011010'
 		saida = defineParidade(dado)
 		self.assertEqual(saida, '011100101010')
+
+		dado1 = '10101110'
+		saida1 = defineParidade(dado1)
+		self.assertEqual(saida1, '101101011110')
+
+		dado2 = '11110101'
+		saida2 = defineParidade(dado2)
+		self.assertEqual(saida2, '101011100101')
+
+		dado3 = '01010001'
+		saida3 = defineParidade(dado3)
+		self.assertEqual(saida3, '010110110001')
+
+		dado4 = '01100110'
+		saida4 = defineParidade(dado4)
+		self.assertNotEqual(saida4, '000011000110')
+
+		
+        
+		
 		
 	def test_CorrigeParidade_Teste1(self):
 		dado = '011100101110'
 		verificaParidade(dado)
 		saida = corrigeDado(dado)
 		self.assertEqual(saida, '011100101010')
-	
-	# ESCREVER MAIS TESTES DE DEFINICAO E DE CORRECAO
-	# LEMBRAR DEFINIR ENTRA DADO DE 8 bits e CORRIGE 12 bits
-		
-		
-		
+
+		dado1 = '101101011010'
+		verificaParidade(dado1)
+		saida1 = corrigeDado(dado1)
+		self.assertEqual(saida1, '101101011110')
+
+		dado2 = '111011100101'
+		verificaParidade(dado2)
+		saida2 = corrigeDado(dado2)
+		self.assertEqual(saida2, '101011100101')
+
+		dado3 = '011110110001'
+		verificaParidade(dado3)
+		saida3 = corrigeDado(dado3)
+		self.assertEqual(saida3, '010110110001')
+
+		dado4 = '000011000110'
+		verificaParidade(dado4)
+		saida4 = corrigeDado(dado4)
+		self.assertEqual(saida4, '010011000110')	
+			
 def test():
 	if( __name__ == "__main__"):
 		unittest.main()
-
 
 def menu():
 	
@@ -202,12 +236,12 @@ def menu():
 	if(opcao == '0'):
 		return False
 	elif(opcao == '1'):
-		entrada = raw_input("\nDigite uma entrada de 8 bits: ")
+		entrada = raw_input("\nDigite uma entrada em binario de 8 bits: ")
 		saida = defineParidade(entrada)
 		print saida
 		
 	elif(opcao == '2'):
-		entrada = raw_input("\nDigite uma entrada de 12 bits: ")
+		entrada = raw_input("\nDigite uma entrada em binario de 12 bits: ")
 		if(verificaParidade(entrada)):
 			print "\nParidade verificada com sucesso!!!\n"
 		else:
